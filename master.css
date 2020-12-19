@@ -1,6 +1,13 @@
+:root{
+  --block-color: rgb(0,0,255);
+  --path-color: rgb(255,255,255);
+  --mark-color: rgb(255,255,0);
+}
+
 #container {
   display: flex;
   flex-flow: column;
+  justify-content: center;
 }
 
 .cells{
@@ -10,24 +17,38 @@
 
 .cell{
   box-sizing: border-box;
-  background-color: white;
   border: solid black 1px;
+  border-radius: 5px;
   padding: 1.5px;
-
+  margin: 4px;
+  --cell-shadow-color: var(--path-color);
+  background-color: var(--path-color);
   display: flex;
   flex-direction: row;
+
+  transition: background-color 0.4s;
+}
+
+.path:hover{
+  cursor: pointer;
+  background-color: lightgrey;
+}
+
+.block{
+  background-color: var(--block-color);
 }
 
 .active{
-  background-color: yellow !important;
+  background-color: var(--mark-color) !important;
 }
 .mark {
   box-sizing: border-box;
-  height: 30%;
-  width: 30%;
+  height: 40%;
+  width: 40%;
+  margin: 1.5px;
   border-radius: 100%;
   border: solid black 1px;
-  background-color: yellow;
+  background-color: var(--mark-color);
   font-size: 0.5em;
   text-align: center;
 }
