@@ -1,20 +1,32 @@
+// a full conectivity search og point A, unless A == B, it would be better to combine with a
+// lookup of previously explored points, but in this visualization that has been left out
+import * as drawHandler from './drawHandler.js';
+import * as counter from './alg_counter.js';
 
-let knownpaths = []
+export default function connecticity(pa,pb,zone_map){
+  drawHandler.resetPath();
+  drawHandler.addPath([pa,pb]);
+  counter.resetCounter();
+  counter.count();
 
-function possible(pa,pb){
-  drawpaths = [[pa],[pb]]
-  checkcounter = 1
-  if (checkInKnownPaths(pa,pb)){
-    return true
+  if (pa[0] == pb[0] && pa[1] == pb[1]){
+    return true;
+  }
+  // check if the types match
+  counter.count();
+  if (zone_map[pa[0]][pa[1]] != zone_map[pb[0]][pb[1]]){
+      return false;
   }
 
 
   let cur_type = zone_map[pa[0]][pa[1]];
+  let len_c = zone_map[0].length;
+  let len_r = zone_map.length;
   let path = [];
   let crossroads = [pa];
   // find all possible paths from pa
-  for (cp of crossroads){
-    checkcounter++;
+  for (let cp of crossroads){
+    counter.count();
     let draw = [cp];
 
     if (!path.map(x => x.join()).includes((cp.join()))) {
@@ -28,68 +40,37 @@ function possible(pa,pb){
       // check bound and type match
       // up
       let id = [r-1,c]
-      checkcounter++;
+      counter.count();
       if (r > 0 && cur_type == zone_map[r-1][c]){
         draw.push(id);
         crossroads.push(id)
       }
       // down
       id = [(r+1),c]
-      checkcounter++;
+      counter.count();
       if (r < len_r-1 && cur_type == zone_map[r+1][c]){
           draw.push(id);
           crossroads.push(id)
       }
       // left
       id = [r,c-1];
-      checkcounter++;
+      counter.count();
       if (c > 0 && cur_type == zone_map[r][c-1]){
         draw.push(id);
         crossroads.push(id);
       }
       // right
       id = [r,c+1];
-      checkcounter++;
+      counter.count();
       if (c < len_c-1 && cur_type == zone_map[r][c+1]){
         draw.push(id);
         crossroads.push(id);
       }
     }
-    drawpaths.push(draw);
+    drawHandler.addPath(draw);
   }
-  // store path
-  knownpaths.push(path)
 
   // check if destination is of set and return
   let checkarr = path.map(x => x.join());
-  return (checkarr.includes((pa.join())) && checkarr.includes((pb.join())))
-}
-
-
-function checkInKnownPaths(pa,pb){
-  checkcounter++;
-
-  if (pa[0] == pb[0] && pa[1] == pb[1]){
-    return true
-  }
-  // check if the types match
-  checkcounter++;
-  if (zone_map[pa[0]][pa[1]] != zone_map[pb[0]][pb[1]]){
-      return false
-  }
-  // check of known paths
-  for (path of knownpaths){
-    checkcounter++;
-    let checkarr = path.map(x => x.join());
-    if (checkarr.includes((pa.join())) && checkarr.includes((pb.join()))){
-      return true
-    }
-    else if (checkarr.includes((pa.join())) || checkarr.includes((pb.join()))){
-      checkcounter++;
-      return false
-    }
-    checkcounter++;
-  }
-  // no checks gave output
-  return false
+  return (checkarr.includes((pa.join())) && checkarr.includes((pb.join())));
 }
