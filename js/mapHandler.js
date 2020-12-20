@@ -2,6 +2,8 @@ import * as queryHandler from './queryHandler.js';
 
 let zone_map = null;
 let size = 40;
+let rows = 8;
+let colums = 20;
 
 export function getMap(){
   return zone_map;
@@ -9,8 +11,6 @@ export function getMap(){
 
 export function setRandomMap(){
   let map = []
-  let rows = 10;
-  let colums = 20;
   for(let i = 0; i < rows; i++){
     let row = [];
     for(let j = 0; j < colums; j++){

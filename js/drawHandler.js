@@ -2,9 +2,11 @@ let drawPaths = [];
 let activeCell = null;
 let drawInterval = false;
 // set settings for drawing
-let speed = 100; // make input range slider in master
-
-
+let speed = 150; 
+// IDEA: store progress of drawing by updating a index value for each interval so that speed can be alterd while drwaing
+export function setSpeed(s){
+  speed = s;
+}
 export function getDrawInterval(){
   return drawInterval;
 }

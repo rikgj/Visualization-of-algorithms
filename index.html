@@ -4,24 +4,56 @@
     <meta charset="utf-8">
     <title></title>
 
-    <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="pageSetup.css">
   </head>
   <body>
-    <h1>Algorithm visualized</h1>
-    <div class="" id='container'>
-      <!-- DO NOT ADD CONTENT -->
+    <div class="siteContainer">
+      <div class="sideBar"></div>
+      <div class="mainContent">
+        <div class="title">
+            <h1>Algorithm visualization</h1>
+            <div class="algSelect">
+              <select name="algorithms" id="curAlg">
+                <option value="MyFirstV1">My first algorithm V1</option>
+                <option value="asd">Test1</option>
+                <option value="ad">Test2</option>
+              </select>
+            </div>
+        </div>
+        <div class="mapContainer" id='container'>
+          <!-- DO NOT ADD CONTENT -->
+        </div>
+        <div class="IO">
+          <div class="userInp">
+            <div class="inp1">
+              <button id='btnRndMap' type="button" name="button">Random Map</button>
+              <button id='btnFindPath' type="button" name="button">Find Path</button>
+            </div>
+            <div class="ct-speed">
+              <span>🐇</span>
+              <div class="ct-range">
+                  <input id="inpSpeed" type="range" name="" value="" min="0" max="200" value="150" step="20">
+              </div>
+              <span>🐢</span>
+            </div>
+          </div>
+          <div class="outInfo">
+            <div class="outStats">
+              <p>Path to find:  <span id='txt_qOut'>(0,0) &#10132; (0,0)</span></p>
+              <p>Result: <span id='txt_resOut'></span></p>
+              <p>Number of checks performed: <span id="txt_counterOut">0</span> </p>
+            </div>
+            <div class="outAlgInfo">
+            The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm,
+            that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sideBar"></div>
     </div>
-    <button id='btnRndMap' type="button" name="button">Random Map</button>
-    <button id='btnFindPath' type="button" name="button">Find Path</button>
-    <p>Click on two poins to find path</p>
-    <p>Path to find:  <span id='txt_qOut'>(0,0) &#10132; (0,0)</span></p>
-    <p>Result: <span id='txt_resOut'></span></p>
-    <p>Number of checks performed: <span id="txt_counterOut">0</span> </p>
 
-
-    <!-- SCRIPTS -->
-    <!-- <script src="./js/gridbuilder.js" charset="utf-8"></script>
-    <script src="./js/gui.js" charset="utf-8"></script> -->
     <script src="./master.js" type="module" charset="utf-8"></script>
     </script>
   </body>
