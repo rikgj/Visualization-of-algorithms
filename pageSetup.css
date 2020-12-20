@@ -1,16 +1,15 @@
 *{
   margin: 0px;
 }
-
+/*Configuration of site behaviour*/
 html, body{
   height: 100%;
 }
 
-.siteContainer{
+.ct-site{
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  margin: 0px;
   padding:0px;
 
   display: flex;
@@ -21,16 +20,14 @@ html, body{
 .sideBar{
   flex-grow: 1.5;
 }
-
 .sideBar:first-of-type{
   background-image: linear-gradient(to left, lightgrey, darkgrey);
 }
-
 .sideBar:last-of-type{
   background-image: linear-gradient(to right, lightgrey, darkgrey);
 }
 
-.mainContent{
+.ct-main{
   background-color: lightgrey;
   flex-grow: 2;
   box-sizing: border-box;
@@ -42,48 +39,21 @@ html, body{
   justify-content: space-around;
 }
 
-.mainContent>*{
+.ct-main>*{
   align-items: center;
 }
-
-
-.title{
+/*----------------------------------------------------*/
+/*Configuration of top part of site*/
+.ct-top{
   flex-grow: 1;
-  text-align: center;
 
-}
-
-
-.mapContainer{
-  /* The rest of mapContainer is configured in map.css */
-  flex-grow: 2;
-}
-
-
-.IO{
-    flex-grow: 2;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.userInp{
-  flex-grow: 1.5;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.inp1{
-  flex-grow: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-button, .algSelect{
+button, .ct-select{
   box-sizing: border-box;
   width: 100px;
   height: 50px;
@@ -92,7 +62,7 @@ button, .algSelect{
   user-select: none;
 }
 
-button:hover{
+button:hover, .alg:hover{
   cursor: pointer;
 }
 
@@ -104,62 +74,98 @@ button:focus{
   outline: none;
 }
 
-.outInfo{
-  flex-grow: 1;
-  display: flex;
-  flex-direction: row;
-}
-
-.outStats{
-  flex-grow: 1;
-}
-
-.outAlgInfo{
-  flex-grow: 1.5;
-  box-sizing: border-box;
-  width: 220px;
-
-}
-
-.algSelect{
+.ct-select{
   background-color: rgb(239, 239, 239);
   position: relative;
   display: inline-block;
-  width: 100px;
   text-align: center;
 }
 
-.algSelect:hover .algs{
-  background: darkblue;
+.ct-select:hover .ct-algs{
   display: block;
-  width: 100%;
 }
 
-.algs{
+.ct-algs{
   display: none;
-  position: absolute;
+  padding:0;
   width: 100%;
+  list-style-type: none;
 }
-
-
+/* used to remove dropdown menu with js */
+.ct-algs-display-none{
+  display: none !important;
+}
 
 .alg{
   display: block;
-  min-width: 100%;
+  width: 100%;
   text-align: left;
   padding: 5px;
   background: rgb(239, 239, 239);
   z-index: 1;
   border: 1px solid black;
 }
-.alg:last-of-type{
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+
+
+/*----------------------------------------------------*/
+
+/*Configuration of middle part of site*/
+.ct-middle{
+  /* The rest of mapContainer is configured in map.css */
+  flex-grow: 2;
+}
+/*----------------------------------------------------*/
+
+/*Configuration of bottom part of site*/
+.ct-bottom{
+    flex-grow: 2;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.alg:hover{
-  cursor: pointer;
+.ct-inn{
+  flex-grow: 1.5;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: stretch;
 }
+
+.ct-buttons{
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.ct-out{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.out-stats{
+  flex-grow: 1;
+}
+
+.ct-info{
+  flex-grow: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+.out-info-title{
+
+}
+.out-info{
+  box-sizing: border-box;
+  width: 220px;
+}
+
 
 .ct-speed{
   flex-grow: 1;
@@ -186,3 +192,4 @@ button:focus{
   transform-origin: 75px 75px;
   transform: rotate(-90deg);
 }
+/*----------------------------------------------------*/

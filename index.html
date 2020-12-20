@@ -8,25 +8,23 @@
     <link rel="stylesheet" href="pageSetup.css">
   </head>
   <body>
-    <div class="siteContainer">
+    <div class="ct-site">
       <div class="sideBar"></div>
-      <div class="mainContent">
-        <div class="title">
+      <div class="ct-main">
+        <div class="ct-top">
             <h1>Algorithm visualization</h1>
-            <div class="algSelect">
-              <select name="algorithms" id="curAlg">
-                <option value="MyFirstV1">My first algorithm V1</option>
-                <option value="asd">Test1</option>
-                <option value="ad">Test2</option>
-              </select>
+            <div class="ct-select">
+              <span id="curAlg"></span>
+              <ol id="algs" class="ct-algs" curAlg>
+              </ol>
             </div>
         </div>
-        <div class="mapContainer" id='container'>
+        <div class="ct-middle" id='container'>
           <!-- DO NOT ADD CONTENT -->
         </div>
-        <div class="IO">
-          <div class="userInp">
-            <div class="inp1">
+        <div class="ct-bottom">
+          <div class="ct-inn">
+            <div class="ct-buttons">
               <button id='btnRndMap' type="button" name="button">Random Map</button>
               <button id='btnFindPath' type="button" name="button">Find Path</button>
             </div>
@@ -38,15 +36,15 @@
               <span>🐢</span>
             </div>
           </div>
-          <div class="outInfo">
-            <div class="outStats">
+          <div class="ct-out">
+            <div class="out-stats">
               <p>Path to find:  <span id='txt_qOut'>(0,0) &#10132; (0,0)</span></p>
               <p>Result: <span id='txt_resOut'></span></p>
               <p>Number of checks performed: <span id="txt_counterOut">0</span> </p>
             </div>
-            <div class="outAlgInfo">
-            The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm,
-            that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.
+            <div class="ct-info">
+              <h2 id="out-info-title" class="out-info-title"></h2>
+              <p id="out-info" class="out-info" ></p>
             </div>
           </div>
         </div>

@@ -8,28 +8,65 @@ import * as counter from './js/alg_counter.js';
 // assign user input funcs
 document.getElementById('btnFindPath').onclick = clickFindPath;
 document.getElementById('btnRndMap').onclick = clickRndMap;
+// set speed range slider
 let inpSpeed = document.getElementById('inpSpeed');
 inpSpeed.onchange = updSpeed;
 inpSpeed.value = parseInt((parseInt(inpSpeed.max) - parseInt(inpSpeed.min))*2/3);
-
+// IDEA: might want some algs to use two points A and B, but not all?
 // {'value':[int],'name':[string], 'info':[string]}
 let algorithms = [
-  {'value':0,'name':'My First Algorithm v1', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'}
+  {'value':0,'name':'My First Algorithm v1', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'},
+  {'value':0,'name':'My First Algorithm v2', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'},
+  {'value':0,'name':'My First Algorithm v3', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'}
 ]
-
+// keep track off which algorithm is currently chosen
+let curAlg = -1;
+// add algorithm selection items
+let parent = document.getElementById("algs");
 for (let alg of algorithms){
-  console.log(alg)
+  let el = new Alg(alg.name);
+  parent.append(el);
 }
-
-
+// set current algorithm to first in list
+setCurAlg(algorithms[0].name);
 
 // start up the  map generating
 clickRndMap()
 
 
-
-
 //User functions
+function Alg(name){
+  let alg = document.createElement('li');
+  alg.classList.add('alg');
+  alg.innerText = name;
+  alg.onclick = (evt) =>{
+    setCurAlg(evt.target.innerText)
+    // remove dropdown menu
+    evt.target.parentElement.classList.add('ct-algs-display-none');
+    // make it so that the dropdown menu can reappear
+    document.addEventListener('mousemove', removeDisplayNone);
+  }
+  return alg;
+}
+
+function removeDisplayNone(){
+  document.getElementById("algs").classList.remove('ct-algs-display-none');
+  // remove itself as a listener
+  document.removeEventListener('mousemove',removeDisplayNone);
+}
+
+function setCurAlg(name){
+  for (let alg of algorithms){
+    if (name == alg.name){
+      curAlg = alg.value;
+      document.getElementById("curAlg").innerText = alg.name;
+      document.getElementById("out-info-title").innerText = alg.name;
+      document.getElementById("out-info").innerText = alg.info;
+      break;
+    }
+  }
+}
+
 function updSpeed(){
   let speed = parseInt(inpSpeed.max) - parseInt(inpSpeed.value);
   drawHandler.setSpeed(speed)
@@ -56,12 +93,10 @@ function clickFindPath(){
 
   let result = '';
   let res = -1;
-  // IDEA: might want some algs to use two points A and B, but not all?
-  // // FIXME: make a switch so that different algorithms can be used
-  let alg = document.getElementById('curAlg').value;
-  console.log(alg)
-  switch (alg) {
-    case 'MyFirstV1':
+
+
+  switch (curAlg) {
+    case 0:
       res = connecticity(qab[0],qab[1],zone_map);
       break;
   }
