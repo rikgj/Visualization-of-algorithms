@@ -1,6 +1,7 @@
 *{
   margin: 0px;
 }
+/*----------------------------------------------------*/
 /*Configuration of site behaviour*/
 html, body{
   height: 100%;
@@ -42,6 +43,7 @@ html, body{
 .ct-main>*{
   align-items: center;
 }
+
 /*----------------------------------------------------*/
 /*Configuration of top part of site*/
 .ct-top{
@@ -108,14 +110,13 @@ button:focus{
 
 
 /*----------------------------------------------------*/
-
 /*Configuration of middle part of site*/
 .ct-middle{
   /* The rest of mapContainer is configured in map.css */
   flex-grow: 2;
 }
-/*----------------------------------------------------*/
 
+/*----------------------------------------------------*/
 /*Configuration of bottom part of site*/
 .ct-bottom{
     flex-grow: 2;
@@ -192,4 +193,3 @@ button:focus{
   transform-origin: 75px 75px;
   transform: rotate(-90deg);
 }
-/*----------------------------------------------------*/
