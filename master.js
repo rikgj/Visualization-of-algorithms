@@ -1,5 +1,6 @@
 // imports
-import connecticity from './js/algorithm_connectivty.js';
+import connecticity_v1 from './js/alg_connectivityV1.js';
+import connecticity_v2 from './js/alg_connectivityV2.js';
 import * as mapHandler from './js/mapHandler.js';
 import * as drawHandler from './js/drawHandler.js';
 import * as qHandler from './js/queryHandler.js'
@@ -16,8 +17,7 @@ inpSpeed.value = parseInt((parseInt(inpSpeed.max) - parseInt(inpSpeed.min))*2/3)
 // {'value':[int],'name':[string], 'info':[string]}
 let algorithms = [
   {'value':0,'name':'My First Algorithm v1', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'},
-  {'value':0,'name':'My First Algorithm v2', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'},
-  {'value':0,'name':'My First Algorithm v3', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'}
+  {'value':1,'name':'My First Algorithm v2', 'info':'The algorithm was my second attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed. An improvment from V1 is that the algorithm looks at all cells neighboring a found cell until it hita a block.'}
 ]
 // keep track off which algorithm is currently chosen
 let curAlg = -1;
@@ -97,7 +97,10 @@ function clickFindPath(){
 
   switch (curAlg) {
     case 0:
-      res = connecticity(qab[0],qab[1],zone_map);
+      res = connecticity_v1(qab[0],qab[1],zone_map);
+      break;
+    case 1:
+      res = connecticity_v2(qab[0],qab[1],zone_map);
       break;
   }
 
