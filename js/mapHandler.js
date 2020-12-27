@@ -68,9 +68,10 @@ function Cell(i,j,block,size){
   if(block){
     cell.classList.add('block');
   }else{//cell is a path
+    // the number of marks must correspond with number of given qs
     cell.classList.add('path');
     cell.onclick = (evt)=>{identifyCell(evt)};
-    // add markers
+    // add markers corresponding with number of qs to the algorithm in use
     let markA = new Mark(id+'A');
     let markB = new Mark(id+'B');
     cell.appendChild(markA);

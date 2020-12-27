@@ -1,9 +1,8 @@
 // imports
-import connecticity_v1 from './js/alg_connectivityV1.js';
-import connecticity_v2 from './js/alg_connectivityV2.js';
 import * as mapHandler from './js/mapHandler.js';
 import * as drawHandler from './js/drawHandler.js';
 import * as qHandler from './js/queryHandler.js'
+import * as algHandler from './js/algHandler.js';
 import * as counter from './js/alg_counter.js';
 
 // assign user input funcs
@@ -13,64 +12,23 @@ document.getElementById('btnRndMap').onclick = clickRndMap;
 let inpSpeed = document.getElementById('inpSpeed');
 inpSpeed.onchange = updSpeed;
 inpSpeed.value = parseInt((parseInt(inpSpeed.max) - parseInt(inpSpeed.min))*2/3);
-// IDEA: might want some algs to use two points A and B, but not all?
-// {'value':[int],'name':[string], 'info':[string]}
-let algorithms = [
-  {'value':0,'name':'My First Algorithm v1', 'info':'The algorithm was my first attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed.'},
-  {'value':1,'name':'My First Algorithm v2', 'info':'The algorithm was my second attempt to solve a path finding challange. It is more of a connectivity algorithm, that checks if a path between two point can be foud. Unless point A = point B, a full connectivity search of point A will be performed. An improvment from V1 is that the algorithm looks at all cells neighboring a found cell until it hita a block.'}
-]
-// keep track off which algorithm is currently chosen
-let curAlg = -1;
-// add algorithm selection items
-let parent = document.getElementById("algs");
-for (let alg of algorithms){
-  let el = new Alg(alg.name);
-  parent.append(el);
-}
-// set current algorithm to first in list
-setCurAlg(algorithms[0].name);
-
-// start up the  map generating
-clickRndMap()
-
-
-//User functions
-function Alg(name){
-  let alg = document.createElement('li');
-  alg.classList.add('alg');
-  alg.innerText = name;
-  alg.onclick = (evt) =>{
-    setCurAlg(evt.target.innerText)
-    // remove dropdown menu
-    evt.target.parentElement.classList.add('ct-algs-display-none');
-    // make it so that the dropdown menu can reappear
-    document.addEventListener('mousemove', removeDisplayNone);
-  }
-  return alg;
-}
-
-function removeDisplayNone(){
-  document.getElementById("algs").classList.remove('ct-algs-display-none');
-  // remove itself as a listener
-  document.removeEventListener('mousemove',removeDisplayNone);
-}
-
-function setCurAlg(name){
-  for (let alg of algorithms){
-    if (name == alg.name){
-      curAlg = alg.value;
-      document.getElementById("curAlg").innerText = alg.name;
-      document.getElementById("out-info-title").innerText = alg.name;
-      document.getElementById("out-info").innerText = alg.info;
-      break;
-    }
-  }
-}
-
 function updSpeed(){
   let speed = parseInt(inpSpeed.max) - parseInt(inpSpeed.value);
   drawHandler.setSpeed(speed)
 }
+
+// add algorithm selection items
+for (let alg of algHandler.getAlgorithms()){
+  let el = new algHandler.Alg(alg.name);
+  document.getElementById("algs").append(el);
+}
+// setup current algorithm selection
+algHandler.setupAlgGUI();
+
+// IDEA: make the q-spots markers that cannot be on same spot and are moved by dragging them
+
+// start up the  map generating
+clickRndMap()
 
 function clickRndMap(){
   // clear drawing in case it is active
@@ -87,26 +45,17 @@ function clickRndMap(){
 function clickFindPath(){
   // reset color of map
   drawHandler.cleanMap();
+// IDEA: make getQs with parameter numOfPoints[int] from 0 --> 4
+//(limit due to space) 0 because not all algs may need a q
 
+// change of algorithm should change
   let qab = qHandler.getQs();
   let zone_map = mapHandler.getMap();
 
   let result = '';
-  let res = -1;
+  let res = algHandler.runAlg(qab,zone_map);
 
-
-  switch (curAlg) {
-    case 0:
-      res = connecticity_v1(qab[0],qab[1],zone_map);
-      break;
-    case 1:
-      res = connecticity_v2(qab[0],qab[1],zone_map);
-      break;
-  }
-
-  if(res == -1){
-    result = 'RESULT NOT GIVEN';
-  }else if (res){
+  if (res){
     result = 'A path was found';
   }else{
     result = 'A path was not found';
